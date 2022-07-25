@@ -23,9 +23,7 @@
  *
  */
 function getComposition(f, g) {
-  return function (...args) {
-    return f(g(...args));
-  };
+  return (...args) => f(g(...args));
 }
 
 /**
@@ -142,9 +140,8 @@ const retry = (func, attempts) => () => {
  * cos(3.141592653589793) ends
  *
  */
-const logger =
-  (func, logFunc) =>
-  (...args) => {
+function logger(func, logFunc) {
+  return (...args) => {
     const argsStr = JSON.stringify(args).slice(1, -1);
     const logStr = `${func.name}(${argsStr})`;
 
@@ -153,7 +150,7 @@ const logger =
     logFunc(`${logStr} ends`);
     return result;
   };
-
+}
 /**
  * Return the function with partial applied arguments
  *
